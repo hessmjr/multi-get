@@ -32,4 +32,5 @@ test file
  - good url and no range
  - good url and range
  - bad args
-    - can't have num chunks and total download
+    - can't have num chunks and total download  (overrides)
+ - check if total size downloaded equals total size requested
