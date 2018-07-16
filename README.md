@@ -20,7 +20,6 @@ $ vagrant up
 $ vagrant ssh
 ```
 
-
 ### Command Line
 After project dependencies are installed run with the following command:
 ```
@@ -65,15 +64,3 @@ tests, from project root directory execute:
 ```
 python -m unittest discover -v
 ```
-
-## Design
-
-
-test file
- - bad url
- - good url and incorrect range
- - good url and no range
- - good url and range
- - bad args
-    - can't have num chunks and total download  (overrides)
- - check if total size downloaded equals total size requested

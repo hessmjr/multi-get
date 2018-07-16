@@ -25,7 +25,8 @@ def parse_filename(url):
 class Request():
     """
     Class used to encapsulate the file request and processing for parallel
-    chunked downloading.
+    chunked downloading.  Assumes arguments have been validated, except for URL
+    validity, will ensure that when making request.
     """
 
     def __init__(self, url, num_chunk=4, chunk_size=1*(BYTES**2), verbose=False):
@@ -34,8 +35,8 @@ class Request():
         self.chunk_size = chunk_size
         self.verbose = verbose
 
-        # container for the total file size, retrieved from first request
-        self.total_size = None
+        # thread pool, used for tracking threads, number of threads, and testing
+        self.threads = []
 
         # parse the filename from the URL
         self.filename = parse_filename(url)
@@ -44,8 +45,6 @@ class Request():
         """
         Retrieves file from stored URL utilizing parallel download streams.
         """
-        count = -1
-
         # calculate the total size
         file_size = self.num_chunk * self.chunk_size
 
@@ -55,7 +54,7 @@ class Request():
         # iterate through entire calculated file size with the specified chunk
         # size, create new threads to process the download in parallel
         for location in range(0, file_size, self.chunk_size):
-            count += 1
+            count = len(self.threads)
 
             if self.verbose:
                 print 'Creating download thread %d' % count
@@ -64,7 +63,7 @@ class Request():
             # for processing and being processing
             thread_args = (location, count)
             thread = threading.Thread(target=self._download, args=thread_args)
-            # thread.daemon = True  # used to allow main app to exit
+            self.threads.append(thread)
             thread.start()
 
         # wait until all active threads are complete

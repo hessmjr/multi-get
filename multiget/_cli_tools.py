@@ -35,7 +35,7 @@ def validate_num(ctx, param, value):
     """
     if not isinstance(value, (int, long)):
         raise click.BadParameter('Should be an integer.')
-    if not value > 0 and not value < 100:
+    if not (value > 0 and value < 100):
         raise click.BadParameter('Should be between 0 and 100.')
     return value
 
