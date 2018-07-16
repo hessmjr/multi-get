@@ -1,0 +1,26 @@
+sudo: required
+
+language: python
+
+dist: trusty
+service:
+    - docker
+
+python:
+    - "2.7"
+
+install:
+   # update the docker version
+   - sudo apt update -y
+
+   # add project requirements
+   - bash install.sh
+
+script: python -m unittest discover -v
+
+branches:
+    only:
+        - master
+
+notifications:
+    email: false
