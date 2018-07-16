@@ -5,19 +5,19 @@ Python web client that downloads a file in chunks with a specified range.
 Can be operated in two ways, either on local machine or via Vagrant virtual
 machine using VirtualBox.
 
-### Local Setup
-Requires Python version 2.7 and `pip` to be installed locally.  Execute install
-with the following in the project root directory:
-```bash
-$ bash install.sh
-```
-
 ### Vagrant Setup
 Requires [Vagrant](https://www.vagrantup.com/) installed.  From project root
 directory execute the following:
 ```bash
 $ vagrant up
 $ vagrant ssh
+```
+
+### Local Setup
+Requires Python version 2.7 and `pip` to be installed locally.  Execute install
+with the following in the project root directory **(may require sudo)**:
+```bash
+$ bash install.sh
 ```
 
 ### Command Line
@@ -64,7 +64,7 @@ process will download.  If the number and size is greater than the file size
 the threads will still be created although nothing downloaded.  Total file size
 dictates how much of the entire file to download.  It overwrites the size of
 each chunk and preserves the number of parallel chunks to download.  A total
-size greater than the file will only push the parallel processes to run longer 
+size greater than the file will only push the parallel processes to run longer
 than otherwise would require.  Setting total to a negative value (-1) encourages
 the entire file to be downloaded at the specified number of chunks.
 
