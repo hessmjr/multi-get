@@ -26,7 +26,7 @@ from download import Request, BYTES
 @click.version_option()
 
 
-def main(url, num, size, total, verbose):
+def cli(url, num, size, total, verbose):
     """
     Retrieves a file from the given URL.  URL must be valid format.  File
     retrieved in chunks, range and size of chunks can be specified.
@@ -69,4 +69,4 @@ def main(url, num, size, total, verbose):
 # entry point for file, also sets up the relative python file location
 if __name__ == '__main__':
     sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
-    main()
+    cli()
