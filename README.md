@@ -58,6 +58,16 @@ Options:
   --help           Show this message and exit.
 ```
 
+The number of chunks will dictate the number of parallel processes to download
+the file with.  Specifying the chunk size will dictate how much each parallel
+process will download.  If the number and size is greater than the file size
+the threads will still be created although nothing downloaded.  Total file size
+dictates how much of the entire file to download.  It overwrites the size of
+each chunk and preserves the number of parallel chunks to download.  A total
+size greater than the file will only push the parallel processes to run longer 
+than otherwise would require.  Setting total to a negative value (-1) encourages
+the entire file to be downloaded at the specified number of chunks.
+
 ## Testing
 Unit tests are setup to be run locally and via Travis.  In order to process
 tests, from project root directory execute:
