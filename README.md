@@ -8,20 +8,25 @@ machine using VirtualBox.
 ### Vagrant Setup
 Requires [Vagrant](https://www.vagrantup.com/) installed.  From project root
 directory execute the following:
-```bash
+```
 $ vagrant up
 $ vagrant ssh
+```
+
+When finished utilizing, destroy Vagrant box with the following
+```
+$ vagrant destroy
 ```
 
 ### Local Setup
 Requires Python version 2.7 and `pip` to be installed locally.  Execute install
 with the following in the project root directory **(may require sudo)**:
-```bash
-$ bash install.sh
+```
+$ python -m pip install -e .
 ```
 
-### Command Line
-After project dependencies are installed run with the following command:
+### Command Line Examples
+After project dependencies are installed, run with the following command:
 ```
 $ multiget http://httpbin.org/image/jpeg
 File download complete.
@@ -42,6 +47,7 @@ File download complete.
 
 Command line usage and options:
 ```
+$ multiget --help
 Usage: multiget [OPTIONS] URL
 
   Retrieves a file from the given URL.  URL must be valid format.  File
@@ -72,5 +78,5 @@ the entire file to be downloaded at the specified number of chunks.
 Unit tests are setup to be run locally and via Travis.  In order to process
 tests, from project root directory execute:
 ```
-python -m unittest discover -v
+$ python -m unittest discover -v
 ```

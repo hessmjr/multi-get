@@ -26,9 +26,8 @@ Vagrant.configure("2") do |config|
   config.vm.provision "shell", inline: <<-SHELL
     apt-get update
     apt-get install -y python-pip python-dev build-essential
-    pip install --upgrade pip
-    pip install --upgrade virtualenv
+    python -m pip install --upgrade pip
     cd /home/vagrant/multi-get/
-    bash install.sh
+    python -m pip install -e .
   SHELL
 end

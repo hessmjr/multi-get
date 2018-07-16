@@ -1,7 +1,7 @@
 import sys
 from setuptools import setup, find_packages
 
-# immediately bail for ancient pythons
+# immediately bail for incorrect python
 if sys.version_info[:2] != (2, 7):
     raise RuntimeError("Multiget requires python == 2.7")
 
