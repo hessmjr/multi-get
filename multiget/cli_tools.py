@@ -51,3 +51,23 @@ def validate_size(ctx, param, value):
     if not value > 0:
         raise click.BadParameter('Should be greater than 0.')
     return value
+
+
+def is_number(s):
+    """
+    Python Central's recommended quickest and easist number validation
+    """
+    try:
+        float(s)
+        return True
+    except ValueError:
+        pass
+
+    try:
+        import unicodedata
+        unicodedata.numeric(s)
+        return True
+    except (TypeError, ValueError):
+        pass
+
+    return False
