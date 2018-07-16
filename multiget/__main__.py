@@ -20,7 +20,8 @@ from download import Request, BYTES
               help='File chunk size, in MiB')
 @click.option('--total', metavar='INTEGER',
               help='Total file download size, in MiB.  Overrides size of the '
-              'download chunks, if specified.')
+              'download chunks, if specified.  Negative value downloads entire'
+              'file.')
 @click.option('--verbose', is_flag=True, help='Turn on logging')
 @click.version_option()
 
@@ -30,8 +31,6 @@ def main(url, num, size, total, verbose):
     Retrieves a file from the given URL.  URL must be valid format.  File
     retrieved in chunks, range and size of chunks can be specified.
     """
-    req = requests.head(url)
-    print int(req.headers['content-length'])
 
     # if total specified then override chunk size
     if total is not None:
@@ -53,7 +52,7 @@ def main(url, num, size, total, verbose):
     # otherwise estimate the total size of the file download
     else:
         total = size * num
-        size *= BYTES
+        size *= (BYTES ** 2)
 
     if verbose:
         click.echo('Requesting URL: %s' % url)
@@ -61,6 +60,7 @@ def main(url, num, size, total, verbose):
         click.echo('Size of chunks: %s' % size)
         click.echo('Estimated total: %s' % total)
 
+    # make request and retrieve file at URL
     request = Request(url, num, size, verbose)
     request.get()
     print 'File download complete.'

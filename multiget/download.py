@@ -104,7 +104,6 @@ class Request():
         # build GET request by calculating the next range of bytes to retrieve
         # building the request headers and making the streaming GET request
         gap = (location, location + self.chunk_size - 1)
-        print gap
         headers = {'Range': 'bytes=%d-%d' % gap}
         req = requests.get(self.url, headers=headers, stream=True)
 
