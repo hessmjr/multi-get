@@ -2,7 +2,7 @@ import sys, os
 import click
 import requests
 
-from cli_tools import URL, validate_num, validate_size, is_number
+from _cli_tools import URL, validate_num, validate_size, is_number
 from download import Request, BYTES
 
 
@@ -43,8 +43,8 @@ def cli(url, num, size, total, verbose):
 
         # if user specified negative number then request is for entire file
         if total < 0:
-            req = requests.head(url)
-            total = int(req.headers['content-length'])
+            resp = requests.head(url)
+            total = int(resp.headers['content-length'])
 
         # set the chunk size, increase by num chunks for rounding error
         size = (int(total) / int(num)) + int(num)

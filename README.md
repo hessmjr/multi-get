@@ -1,4 +1,4 @@
-# Multi Get Web Client
+# Multi Get Web Client  [![Build Status](https://travis-ci.org/hessmjr/multi-get.svg?branch=master)](https://travis-ci.org/hessmjr/multi-get)
 Python web client that downloads a file in chunks with a specified range.
 
 ## Usage
@@ -67,19 +67,6 @@ python -m unittest discover -v
 ```
 
 ## Design
-
-Vagrant used to contain Python's
-
-use Docker to contain all python crap...
-maybe use travis to showcase CI with tests passing
-
-Single python file
- - cli
- - creates connection to url specified
- - downloads chunks for given range (what if no range) in parallel
- - args for chunk size (default 1 MB)
- - args for num chunks
- - args for total download size
 
 
 test file

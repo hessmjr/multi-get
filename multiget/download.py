@@ -28,7 +28,7 @@ class Request():
     chunked downloading.
     """
 
-    def __init__(self, url, num_chunk=4, chunk_size=1, verbose=False):
+    def __init__(self, url, num_chunk=4, chunk_size=1*(BYTES**2), verbose=False):
         self.url = url
         self.num_chunk = num_chunk
         self.chunk_size = chunk_size
@@ -85,10 +85,21 @@ class Request():
                 temp_name = self.filename + '_part_%d' % i
                 temp_path = os.path.join(os.getcwd(), temp_name)
 
+                # check if temp file exists before trying to write it
+                if not os.path.isfile(temp_path):
+                    continue
+
                 # copy the temporary file into the final files
                 # delete the temporary file once completed
                 shutil.copyfileobj(open(temp_path, 'rb'), open_file)
                 os.remove(temp_path)
+
+        # if no file was written then remove
+        if os.path.getsize(filepath) < 1:
+            os.remove(filepath)
+
+            if self.verbose:
+                print 'No data to write to file for %s' % self.filename
 
         if self.verbose:
             print 'Files merged and deleted.  File saved at %s' % filepath
@@ -105,14 +116,20 @@ class Request():
         # building the request headers and making the streaming GET request
         gap = (location, location + self.chunk_size - 1)
         headers = {'Range': 'bytes=%d-%d' % gap}
-        req = requests.get(self.url, headers=headers, stream=True)
+        resp = requests.get(self.url, headers=headers, stream=True)
 
         if self.verbose:
-            print 'Requesting %s' % filepath
+            print 'Requesting %s' % filename
+
+        # if request was not HTTP OK then stop proceeding
+        if resp.status_code >= 300:
+            if self.verbose:
+                print 'Invalid response code: %d' % resp.status_code
+            return
 
         # write the requested chunk to the temporary file
         with open(filepath, 'wb') as open_file:
-            for chunk in req.iter_content(chunk_size=BYTES):
+            for chunk in resp.iter_content(chunk_size=BYTES):
                 if chunk:
                     open_file.write(chunk)
 
