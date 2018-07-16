@@ -21,7 +21,7 @@ from download import Request, BYTES
 @click.option('--total', metavar='INTEGER',
               help='Total file download size, in MiB.  Overrides size of the '
               'download chunks, if specified.  Negative value downloads entire'
-              'file.')
+              ' file.')
 @click.option('--verbose', is_flag=True, help='Turn on logging')
 @click.version_option()
 

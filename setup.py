@@ -12,7 +12,7 @@ setup(
     include_package_data=True,
     entry_points = {
         'console_scripts': [
-            'multiget = multiget.__main__:main'
+            'multiget = multiget.__main__:cli'
         ]
     }
 )

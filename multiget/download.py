@@ -9,7 +9,7 @@ BYTES = 1024
 
 def parse_filename(url):
     """
-    Parses the filename from the given URL
+    Parses the filename from the given URL.  Assumes valid URL given.
     """
     # extract the URL path
     url_path = urlparse.urlparse(url).path
